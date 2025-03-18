@@ -51,7 +51,7 @@ $captcha_version = WP_Job_Manager\WP_Job_Manager_Recaptcha::instance()->get_reca
 		<?php do_action( 'submit_job_form_job_fields_end' ); ?>
 
 		<!-- Company Information Fields -->
-		<?php if ( $company_fields ) : ?>
+		<?php if ( 0 ) : ?>
 			<h2><?php esc_html_e( 'Company Details', 'wp-job-manager' ); ?></h2>
 
 			<?php do_action( 'submit_job_form_company_fields_start' ); ?>
