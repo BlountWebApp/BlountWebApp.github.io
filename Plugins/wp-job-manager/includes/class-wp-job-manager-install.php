@@ -179,10 +179,10 @@ class WP_Job_Manager_Install {
 	private static function get_default_taxonomy_terms() {
 		return [
 			\WP_Job_Manager_Post_Types::TAX_LISTING_TYPE => [
-				'Full Time'  => [
+				'Request'  => [
 					'employment_type' => 'FULL_TIME',
 				],
-				'Part Time'  => [
+				'Offer'  => [
 					'employment_type' => 'PART_TIME',
 				],
 				'Temporary'  => [

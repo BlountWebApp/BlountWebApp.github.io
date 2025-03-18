@@ -207,8 +207,8 @@ class WP_Job_Manager_Form_Submit_Job extends WP_Job_Manager_Form {
 				$application_method_sanitizer   = 'url';
 				break;
 			default:
-				$application_method_label       = __( 'Application email/URL', 'wp-job-manager' );
-				$application_method_placeholder = __( 'Enter an email address or website URL', 'wp-job-manager' );
+				$application_method_label       = __( 'Contact info/Email', 'wp-job-manager' );
+				$application_method_placeholder = __( 'Enter an email address or other contact information', 'wp-job-manager' );
 				$application_method_sanitizer   = 'url_or_email';
 				break;
 		}
@@ -223,29 +223,29 @@ class WP_Job_Manager_Form_Submit_Job extends WP_Job_Manager_Form {
 			[
 				'job'     => [
 					'job_title'           => [
-						'label'       => __( 'Job Title', 'wp-job-manager' ),
+						'label'       => __( 'Ride Title', 'wp-job-manager' ),
 						'type'        => 'text',
 						'required'    => true,
 						'placeholder' => '',
 						'priority'    => 1,
 					],
 					'job_location'        => [
-						'label'       => __( 'Location', 'wp-job-manager' ),
+						'label'       => __( 'Drop-Off Location', 'wp-job-manager' ),
 						'description' => __( 'Leave this blank if the location is not important', 'wp-job-manager' ),
 						'type'        => 'text',
 						'required'    => false,
-						'placeholder' => __( 'e.g. "London"', 'wp-job-manager' ),
+						'placeholder' => __( 'e.g. "Walmart"', 'wp-job-manager' ),
 						'priority'    => 2,
 					],
 					'remote_position'     => [
-						'label'       => __( 'Remote Position', 'wp-job-manager' ),
-						'description' => __( 'Select if this is a remote position.', 'wp-job-manager' ),
+						'label'       => __( 'Standing Offer', 'wp-job-manager' ),
+						'description' => __( 'Select if this is a standing (weekly, monthly, etc) offer.', 'wp-job-manager' ),
 						'type'        => 'checkbox',
 						'required'    => false,
 						'priority'    => 3,
 					],
 					'job_type'            => [
-						'label'       => __( 'Job type', 'wp-job-manager' ),
+						'label'       => __( 'Ride type', 'wp-job-manager' ),
 						'type'        => $job_type,
 						'required'    => true,
 						'placeholder' => __( 'Choose job type&hellip;', 'wp-job-manager' ),

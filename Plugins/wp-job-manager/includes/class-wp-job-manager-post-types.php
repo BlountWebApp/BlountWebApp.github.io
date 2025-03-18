@@ -281,8 +281,8 @@ class WP_Job_Manager_Post_Types {
 		 * Taxonomies
 		 */
 		if ( get_option( 'job_manager_enable_categories' ) ) {
-			$singular = __( 'Job category', 'wp-job-manager' );
-			$plural   = __( 'Job categories', 'wp-job-manager' );
+			$singular = __( 'Ride category', 'wp-job-manager' );
+			$plural   = __( 'Ride categories', 'wp-job-manager' );
 
 			if ( current_theme_supports( 'job-manager-templates' ) ) {
 				$rewrite = [
@@ -345,8 +345,8 @@ class WP_Job_Manager_Post_Types {
 		}
 
 		if ( get_option( 'job_manager_enable_types' ) ) {
-			$singular = __( 'Job type', 'wp-job-manager' );
-			$plural   = __( 'Job types', 'wp-job-manager' );
+			$singular = __( 'Ride type', 'wp-job-manager' );
+			$plural   = __( 'Ride types', 'wp-job-manager' );
 
 			if ( current_theme_supports( 'job-manager-templates' ) ) {
 				$rewrite = [
@@ -455,7 +455,7 @@ class WP_Job_Manager_Post_Types {
 					'labels'                => [
 						'name'                  => $plural,
 						'singular_name'         => $singular,
-						'menu_name'             => esc_html__( 'Job Manager', 'wp-job-manager' ),
+						'menu_name'             => esc_html__( 'Ride Manager', 'wp-job-manager' ),
 						// translators: Placeholder %s is the plural label of the job listing post type.
 						'all_items'             => sprintf( esc_html__( 'All %s', 'wp-job-manager' ), $plural ),
 						'add_new'               => esc_html__( 'Add New', 'wp-job-manager' ),
@@ -1638,7 +1638,7 @@ class WP_Job_Manager_Post_Types {
 
 		$allowed_application_method     = get_option( 'job_manager_allowed_application_method', '' );
 		$application_method_label       = __( 'Application email/URL', 'wp-job-manager' );
-		$application_method_placeholder = __( 'Enter an email address or website URL', 'wp-job-manager' );
+		$application_method_placeholder = __( 'Enter an email address or other contact information', 'wp-job-manager' );
 
 		if ( 'email' === $allowed_application_method ) {
 			$application_method_label       = __( 'Application email', 'wp-job-manager' );
@@ -1648,15 +1648,15 @@ class WP_Job_Manager_Post_Types {
 			$application_method_placeholder = __( 'https://', 'wp-job-manager' );
 		}
 
-		$job_expires_description = __( 'Job listing expires at the end of the day.', 'wp-job-manager' );
+		$job_expires_description = __( 'Ride listing expires at the end of the day.', 'wp-job-manager' );
 		if ( ! self::instance()->jobs_expires_end_of_day() ) {
-			$job_expires_description = __( 'Job listing expires at the start of the day.', 'wp-job-manager' );
+			$job_expires_description = __( 'Ride listing expires at the start of the day.', 'wp-job-manager' );
 		}
 
 		$fields = [
 			'_job_location'        => [
 				'label'         => __( 'Location', 'wp-job-manager' ),
-				'placeholder'   => __( 'e.g. "London"', 'wp-job-manager' ),
+				'placeholder'   => __( 'e.g. "Walmart"', 'wp-job-manager' ),
 				'description'   => __( 'Leave this blank if the location is not important.', 'wp-job-manager' ),
 				'priority'      => 1,
 				'data_type'     => 'string',
@@ -1748,8 +1748,8 @@ class WP_Job_Manager_Post_Types {
 				'sanitize_callback'  => [ __CLASS__, 'sanitize_meta_field_date' ],
 			],
 			'_remote_position'     => [
-				'label'         => __( 'Remote Position', 'wp-job-manager' ),
-				'description'   => __( 'Select if this is a remote position.', 'wp-job-manager' ),
+				'label'         => __( 'Standing Offer', 'wp-job-manager' ),
+				'description'   => __( 'Select if this is a standing (weekly, monthly, etc) offer.', 'wp-job-manager' ),
 				'type'          => 'checkbox',
 				'priority'      => 12,
 				'data_type'     => 'integer',
