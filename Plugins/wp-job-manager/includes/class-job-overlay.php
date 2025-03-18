@@ -65,7 +65,7 @@ class Job_Overlay {
 			wp_send_json_error(
 				Notice::error(
 					[
-						'message' => __( 'Invalid Job ID.', 'wp-job-manager' ),
+						'message' => __( 'Invalid Ride ID.', 'wp-job-manager' ),
 						'classes' => [ 'type-dialog' ],
 					]
 				)
