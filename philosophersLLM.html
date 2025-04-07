@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>PhilosopherGPT</title>
+    <style>
+      body {
+        margin: 0;
+        font-family: "Georgia", "Garamond", serif;
+        background-color: #f2efe4;
+        color: #2c2c2c;
+        height: 100vh;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+      }
+
+      #container {
+        display: flex;
+        flex: 1;
+      }
+
+      .pillar {
+        width: 80px;
+        background: url('res/Column.png')
+          no-repeat center;
+        background-size: contain;
+      }
+
+      #content {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-end;
+        padding: 10px;
+        position: relative;
+      }
+
+      #header {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: auto;
+        padding: 10px;
+      }
+
+      #modelDropdown {
+        font-size: 1em;
+        padding: 0.3em;
+        max-width: 280px;
+      }
+
+      #statusIcon {
+        font-size: 1.5em;
+      }
+
+      #loadingBar {
+        width: 100px;
+        height: 5px;
+        background: #ccc;
+        position: relative;
+        overflow: hidden;
+        display: none;
+      }
+
+      #loadingBar::before {
+        content: "";
+        position: absolute;
+        width: 40%;
+        height: 100%;
+        background: #aa8c3c;
+        animation: loading 1s infinite;
+      }
+
+      @keyframes loading {
+        0% {
+          left: -40%;
+        }
+        50% {
+          left: 60%;
+        }
+        100% {
+          left: -40%;
+        }
+      }
+
+      #chat {
+        width: 100%;
+        max-width: 700px;
+        height: 40vh;
+        overflow-y: auto;
+        background: #fff8e1;
+        border: 1px solid #c0b283;
+        border-radius: 8px;
+        padding: 10px;
+        margin-bottom: 10px;
+      }
+
+      .chat-entry {
+        display: flex;
+        align-items: flex-start;
+        margin-bottom: 1em;
+      }
+
+      .chat-entry img {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        margin-right: 10px;
+      }
+
+      #inputArea {
+        width: 100%;
+        max-width: 700px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5em;
+      }
+
+      textarea {
+        width: 100%;
+        font-family: inherit;
+        resize: vertical;
+        padding: 8px;
+        font-size: 1em;
+      }
+
+      button {
+        background-color: #aa8c3c;
+        color: white;
+        border: none;
+        padding: 0.5em 1em;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      button:disabled {
+        background-color: #ccc;
+      }
+
+      #loadBtn {
+        background-color: #6b5b3e;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="header">
+      <select id="modelDropdown"></select>
+      <button id="loadBtn">Load Model</button>
+      <span id="statusIcon">❌</span>
+      <div id="loadingBar"></div>
+    </div>
+
+    <div id="container">
+      <div class="pillar"></div>
+
+      <div id="content">
+        <div id="chat"></div>
+        <div id="inputArea">
+          <textarea id="textInput" placeholder="Ask a philosophical question..." rows="3"></textarea>
+          <button id="submitBtn" disabled>Ask</button>
+        </div>
+      </div>
+
+      <div class="pillar"></div>
+    </div>
+
+    <script type="module">
+      import { LLM } from "./llm.js/llm.js";
+
+      const modelDropdown = document.getElementById("modelDropdown");
+      const loadBtn = document.getElementById("loadBtn");
+      const statusIcon = document.getElementById("statusIcon");
+      const loadingBar = document.getElementById("loadingBar");
+      const chat = document.getElementById("chat");
+      const textInput = document.getElementById("textInput");
+      const submitBtn = document.getElementById("submitBtn");
+
+      let LLMEngine;
+
+      const philosopherModels = [
+        {
+          name: "Socrates – Qwen2 (0.5B)",
+          prompt: "<|im_start|>user\nWhat is virtue?<|im_end|>\n<|im_start|>assistant\n",
+          model:
+            "https://huggingface.co/Qwen/Qwen2-0.5B-Instruct-GGUF/resolve/main/qwen2-0_5b-instruct-q4_0.gguf",
+          type: "GGUF_CPU",
+          avatar: "res/Socrates.png"
+        },
+        {
+          name: "Plato – TinyMistral",
+          prompt: "<|im_start|>user\nWhat is justice?<|im_end|>\n<|im_start|>assistant\n",
+          model:
+            "https://huggingface.co/rahuldshetty/llm.js/resolve/main/TinyMistral-248M-SFT-v4.Q8_0.gguf",
+          type: "GGUF_CPU",
+          avatar: "res/Plato.png"
+        },
+        {
+          name: "Aristotle – LLaMa Lite",
+          prompt: "### Instruction:\nWhat defines a good life?\n\n### Response:\n",
+          model:
+            "https://huggingface.co/rahuldshetty/llm.js/resolve/main/llama2_xs_460m_experimental_evol_instruct.q4_k_m.gguf",
+          type: "GGUF_CPU",
+          avatar: "res/Aristotle.png"
+        },
+        {
+          name: "Nietzsche – TinyLLama",
+          prompt: "What is the will to power?\n",
+          model:
+            "https://huggingface.co/rahuldshetty/llm.js/resolve/main/tiny-llama-miniguanaco-1.5t.q2_k.gguf",
+          type: "GGUF_CPU",
+          avatar: "res/Nietzsche.png"
+        }
+      ];
+
+      function populateDropdown() {
+        philosopherModels.forEach((model, index) => {
+          const option = document.createElement("option");
+          option.value = index;
+          option.textContent = model.name;
+          modelDropdown.appendChild(option);
+        });
+      }
+
+      function loadSelectedModel() {
+        const selected = philosopherModels[modelDropdown.value];
+        textInput.value = selected.prompt;
+
+        statusIcon.textContent = "❌";
+        loadingBar.style.display = "block";
+        submitBtn.disabled = true;
+
+        LLMEngine = new LLM(
+          selected.type,
+          selected.model,
+          () => {
+            statusIcon.textContent = "✅";
+            loadingBar.style.display = "none";
+            submitBtn.disabled = false;
+          },
+          (line) =>
+            appendMessage("assistant", selected.name, selected.avatar, line),
+          () => {
+            submitBtn.disabled = false;
+          }
+        );
+        LLMEngine.load_worker();
+      }
+
+      function appendMessage(sender, name, avatar, message) {
+        const entry = document.createElement("div");
+        entry.classList.add("chat-entry");
+        entry.innerHTML = `
+          <img src="${avatar}" />
+          <div><strong>${name.split(" –")[0]}:</strong> ${message}</div>
+        `;
+        chat.appendChild(entry);
+        chat.scrollTop = chat.scrollHeight;
+      }
+
+      submitBtn.addEventListener("click", () => {
+        const selected = philosopherModels[modelDropdown.value];
+        const userMsg = textInput.value;
+        if (!userMsg) return;
+
+        appendMessage("user", "You", "res/student.png", userMsg);
+        chat.scrollTop = chat.scrollHeight;
+
+        const promptText = selected.prompt.includes("{prompt}")
+          ? selected.prompt.replace("{prompt}", userMsg)
+          : userMsg;
+
+        LLMEngine.run({ prompt: promptText, max_token_len: 100, top_k: 1 });
+        textInput.value = "";
+      });
+
+      loadBtn.addEventListener("click", loadSelectedModel);
+
+      populateDropdown();
+    </script>
+  </body>
+</html>
