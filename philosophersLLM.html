@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>PhilosopherGPT</title>
     <style>
+      @media (max-width: 768px) {
+      .pillar {
+        display: none;
+      }
+    }
       body {
         margin: 0;
         font-family: "Georgia", "Garamond", serif;
@@ -19,13 +24,18 @@
       #container {
         display: flex;
         flex: 1;
+        justify-content: center;
+        align-items: stretch;
       }
 
       .pillar {
-        width: 80px;
-        background: url('res/Column.png')
+        width: 60px;
+        background: url('res/Column_Tall.png')
           no-repeat center;
-        background-size: contain;
+        background-size: 40px auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
       }
 
       #content {
@@ -36,6 +46,7 @@
         justify-content: flex-end;
         padding: 10px;
         position: relative;
+        overflow: hidden;
       }
 
       #header {
@@ -87,15 +98,21 @@
       }
 
       #chat {
+        flex-shrink: 0;
         width: 100%;
         max-width: 700px;
-        height: 40vh;
+        max-height: 60vh;
+        height: 60vh;
         overflow-y: auto;
         background: #fff8e1;
         border: 1px solid #c0b283;
         border-radius: 8px;
         padding: 10px;
         margin-bottom: 10px;
+        overflow-y: auto;
+        position: relative;
+        display: flex;
+        flex-direction: column;
       }
 
       .chat-entry {
@@ -115,11 +132,23 @@
         width: 100%;
         max-width: 700px;
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
         align-items: center;
         gap: 0.5em;
+        padding-bottom: 1em;
+      }
+      #textInput {
+        flex: 1;
+        padding: 8px;
+        font-size: 1em;
+        font-family: inherit;
+        resize: none;
       }
 
+      #submitBtn {
+        min-width: 60px;
+        height: 40px;
+      }
       textarea {
         width: 100%;
         font-family: inherit;
@@ -143,6 +172,19 @@
 
       #loadBtn {
         background-color: #6b5b3e;
+      }
+      .spinner {
+        border: 3px solid #f3f3f3;
+        border-top: 3px solid #aa8c3c;
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;
+        animation: spin 0.8s linear infinite;
+        margin: auto;
+      }
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
       }
     </style>
   </head>
@@ -184,7 +226,7 @@
       const philosopherModels = [
         {
           name: "Socrates – Qwen2 (0.5B)",
-          prompt: "<|im_start|>user\nWhat is virtue?<|im_end|>\n<|im_start|>assistant\n",
+          prompt: "What is virtue?",
           model:
             "https://huggingface.co/Qwen/Qwen2-0.5B-Instruct-GGUF/resolve/main/qwen2-0_5b-instruct-q4_0.gguf",
           type: "GGUF_CPU",
@@ -239,12 +281,16 @@
           () => {
             statusIcon.textContent = "✅";
             loadingBar.style.display = "none";
+            loadBtn.disabled = false;
+            loadBtn.innerHTML = "Load Model";
             submitBtn.disabled = false;
           },
           (line) =>
             appendMessage("assistant", selected.name, selected.avatar, line),
           () => {
             submitBtn.disabled = false;
+            loadBtn.disabled = false;
+            submitBtn.innerHTML = "Ask";
           }
         );
         LLMEngine.load_worker();
@@ -272,12 +318,22 @@
         const promptText = selected.prompt.includes("{prompt}")
           ? selected.prompt.replace("{prompt}", userMsg)
           : userMsg;
+        
+        textInput.value = "";
+        submitBtn.disabled = true;
+        loadBtn.disabled = true;
+        submitBtn.innerHTML = '<div class="spinner"></div>';
 
         LLMEngine.run({ prompt: promptText, max_token_len: 100, top_k: 1 });
         textInput.value = "";
       });
 
-      loadBtn.addEventListener("click", loadSelectedModel);
+      loadBtn.addEventListener("click", () => {
+        loadBtn.disabled = true;
+        submitBtn.disabled = true;
+        loadBtn.innerHTML = '<div class="spinner"></div>';
+        loadSelectedModel();
+      });
 
       populateDropdown();
     </script>
