@@ -6,10 +6,15 @@
     <title>PhilosopherGPT</title>
     <style>
       @media (max-width: 768px) {
-      .pillar {
-        display: none;
+        .pillar {
+          display: none;
+        }
       }
-    }
+      @media (max-width: 768px) {
+        .pillar-wrapper {
+          display: none;
+        }
+      }
       body {
         margin: 0;
         font-family: "Georgia", "Garamond", serif;
@@ -26,16 +31,27 @@
         flex: 1;
         justify-content: center;
         align-items: stretch;
+        padding: 0 1rem;
+      }
+      .pillar-wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 20%;
+        min-width: 50px;
+        padding: 0;
       }
 
       .pillar {
         width: 60px;
         background: url('res/Column_Tall.png')
           no-repeat center;
-        background-size: 40px auto;
-        display: flex;
+        /* background-size: 40px auto; */
+        /* display: flex;
         align-items: center;
-        justify-content: center;
+        justify-content: center; */
+        height: 100%;
+        background-size: contain;
       }
 
       #content {
@@ -139,7 +155,8 @@
       }
       #textInput {
         flex: 1;
-        padding: 8px;
+        padding: 14px;
+        /* padding: 8px; */
         font-size: 1em;
         font-family: inherit;
         resize: none;
@@ -169,7 +186,10 @@
       button:disabled {
         background-color: #ccc;
       }
-
+      button[disabled] {
+        opacity: 0.6;
+        cursor: not-allowed;
+      }
       #loadBtn {
         background-color: #6b5b3e;
       }
@@ -197,7 +217,7 @@
     </div>
 
     <div id="container">
-      <div class="pillar"></div>
+      <div class="pillar-wrapper"><div class="pillar"></div></div>
 
       <div id="content">
         <div id="chat"></div>
@@ -207,7 +227,7 @@
         </div>
       </div>
 
-      <div class="pillar"></div>
+      <div class="pillar-wrapper"><div class="pillar"></div></div>
     </div>
 
     <script type="module">
@@ -222,10 +242,11 @@
       const submitBtn = document.getElementById("submitBtn");
 
       let LLMEngine;
+      const loadedModels = new Set();
 
       const philosopherModels = [
         {
-          name: "Socrates – Qwen2 (0.5B)",
+          name: "Socrates - Qwen2 (0.5B)",
           prompt: "What is virtue?",
           model:
             "https://huggingface.co/Qwen/Qwen2-0.5B-Instruct-GGUF/resolve/main/qwen2-0_5b-instruct-q4_0.gguf",
@@ -233,7 +254,7 @@
           avatar: "res/Socrates.png"
         },
         {
-          name: "Plato – TinyMistral",
+          name: "Plato - TinyMistral",
           prompt: "<|im_start|>user\nWhat is justice?<|im_end|>\n<|im_start|>assistant\n",
           model:
             "https://huggingface.co/rahuldshetty/llm.js/resolve/main/TinyMistral-248M-SFT-v4.Q8_0.gguf",
@@ -241,7 +262,7 @@
           avatar: "res/Plato.png"
         },
         {
-          name: "Aristotle – LLaMa Lite",
+          name: "Aristotle - LLaMa Lite",
           prompt: "### Instruction:\nWhat defines a good life?\n\n### Response:\n",
           model:
             "https://huggingface.co/rahuldshetty/llm.js/resolve/main/llama2_xs_460m_experimental_evol_instruct.q4_k_m.gguf",
@@ -249,7 +270,7 @@
           avatar: "res/Aristotle.png"
         },
         {
-          name: "Nietzsche – TinyLLama",
+          name: "Nietzsche - TinyLLama",
           prompt: "What is the will to power?\n",
           model:
             "https://huggingface.co/rahuldshetty/llm.js/resolve/main/tiny-llama-miniguanaco-1.5t.q2_k.gguf",
@@ -273,7 +294,9 @@
 
         statusIcon.textContent = "❌";
         loadingBar.style.display = "block";
+        loadBtn.disabled = true;
         submitBtn.disabled = true;
+        // loadBtn.innerHTML = '<div class="spinner"></div>'; //todo
 
         LLMEngine = new LLM(
           selected.type,
@@ -281,9 +304,17 @@
           () => {
             statusIcon.textContent = "✅";
             loadingBar.style.display = "none";
-            loadBtn.disabled = false;
-            loadBtn.innerHTML = "Load Model";
+            // loadBtn.disabled = false;
+            // loadBtn.innerHTML = "Load Model";
             submitBtn.disabled = false;
+            loadedModels.add(modelDropdown.value); // Track this model as loaded
+            if (loadedModels.has(modelDropdown.value)) {
+              loadBtn.disabled = true;
+              loadBtn.innerHTML = "Model Loaded";
+            } else {
+              loadBtn.disabled = false;
+              loadBtn.innerHTML = "Load Model";
+            }
           },
           (line) =>
             appendMessage("assistant", selected.name, selected.avatar, line),
@@ -309,7 +340,7 @@
 
       submitBtn.addEventListener("click", () => {
         const selected = philosopherModels[modelDropdown.value];
-        const userMsg = textInput.value;
+        const userMsg = textInput.value.trim(); 
         if (!userMsg) return;
 
         appendMessage("user", "You", "res/student.png", userMsg);
@@ -325,15 +356,32 @@
         submitBtn.innerHTML = '<div class="spinner"></div>';
 
         LLMEngine.run({ prompt: promptText, max_token_len: 100, top_k: 1 });
-        textInput.value = "";
+        // textInput.value = "";
       });
 
       loadBtn.addEventListener("click", () => {
-        loadBtn.disabled = true;
-        submitBtn.disabled = true;
-        loadBtn.innerHTML = '<div class="spinner"></div>';
+        // loadBtn.disabled = true;
+        // submitBtn.disabled = true;
+        loadBtn.innerHTML = "Loading...";
         loadSelectedModel();
       });
+      modelDropdown.addEventListener("change", () => {
+        const modelIndex = modelDropdown.value;
+        const selected = philosopherModels[modelIndex];
+        textInput.value = selected.prompt;
+
+        if (!loadedModels.has(modelIndex)) {
+          statusIcon.textContent = "❌";
+          submitBtn.disabled = true;
+          loadBtn.disabled = false;
+          loadBtn.innerHTML = "Load Model";
+        } else {
+          loadBtn.disabled = true; // Already loaded
+          loadBtn.innerHTML = "Model Loaded";
+          loadSelectedModel();
+        }
+      });
+
 
       populateDropdown();
     </script>
