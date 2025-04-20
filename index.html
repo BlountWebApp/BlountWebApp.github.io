@@ -4,26 +4,69 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Homepage</title>
+    <title>Blount Web App Project</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
     <header>
-        <h1>Welcome to Our Website</h1>
-        <nav>
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="bios.html">About Us</a></li>
-		<li><a href="philosophersLLM.html">Philosopher GPT</a></li>
-                <li><a href="deliverables.html">Deliverables</a></li>
-            </ul>
-        </nav>
+        <div class="container header-content">
+            <div>
+                <h1 class="site-title">Blount Web App Project</h1>
+                <p class="site-description">CS 495 Capstone Project</p>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html" class="active">Home</a></li>
+                    <li><a href="bios.html">Team</a></li>
+                    <li><a href="philosophersLLM.html">Philosopher GPT</a></li>
+                    <li><a href="deliverables.html">Project Timeline</a></li>
+                </ul>
+            </nav>
+        </div>
     </header>
     
-    <main>
+    <main class="container">
+        <section class="hero">
+            <h2>Building a Web App for the Blount Scholars Program</h2>
+            <p>Our team is developing a comprehensive web application to enhance communication and resource sharing within the Blount Scholars community.</p>
+            <a href="deliverables.html" class="btn">View Our Progress</a>
+        </section>
+        
         <section>
-            <h2>Welcome to Our Homepage</h2>
-            <p>Here is a brief introduction to our website and what we do. Explore more through the links above.</p>
+            <h2>Project Overview</h2>
+            <p>This website documents our team's journey in developing a web application for the Blount Scholars Program. Here you can learn about our team members, track our progress through sprint deliverables, and explore our project features.</p>
+            
+            <div class="project-overview">
+                <div class="overview-card">
+                    <i class="fas fa-users"></i>
+                    <h3>Our Team</h3>
+                    <p>Meet our diverse team of developers with expertise in various technologies and domains.</p>
+                    <a href="bios.html" class="btn">Meet the Team</a>
+                </div>
+                
+                <div class="overview-card">
+                    <i class="fas fa-tasks"></i>
+                    <h3>Project Timeline</h3>
+                    <p>Follow our development process through sprint deliverables and project milestones.</p>
+                    <a href="deliverables.html" class="btn">View Timeline</a>
+                </div>
+                
+                <div class="overview-card">
+                    <i class="fas fa-robot"></i>
+                    <h3>Philosopher GPT</h3>
+                    <p>Explore our AI feature that simulates conversations with famous philosophers.</p>
+                    <a href="philosophersLLM.html" class="btn">Try It Out</a>
+                </div>
+            </div>
         </section>
     </main>
+    
+    <footer>
+        <div class="container footer-content">
+            <p class="footer-text">Spring 2025 Blount Web App Team.</p>
+            <p>University of Alabama - CS 495 Capstone Project</p>
+        </div>
+    </footer>
 </body>
 </html>

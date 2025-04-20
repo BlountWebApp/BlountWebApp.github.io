@@ -4,43 +4,87 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>About Us</title>
+    <title>Our Team | Blount Web App Project</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
     <header>
-        <h1>About Us</h1>
-        <nav>
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="bios.html">About Us</a></li>
-                <li><a href="deliverables.html">Deliverables</a></li>
-            </ul>
-        </nav>
+        <div class="container header-content">
+            <div>
+                <h1 class="site-title">Blount Web App Project</h1>
+                <p class="site-description">CS 495 Capstone Project</p>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="bios.html" class="active">Team</a></li>
+                    <li><a href="philosophersLLM.html">Philosopher GPT</a></li>
+                    <li><a href="deliverables.html">Project Timeline</a></li>
+                </ul>
+            </nav>
+        </div>
     </header>
     
-    <main>
+    <main class="container">
         <section>
-            <h2>Andrés Aguilar Calderón</h2>
-            <img src="Headshots/Andres.jpg" alt="Andres Aguilar Calderon" width="42" height="42">
-            <p>Andrés is an experienced VR developer; with over 6 million downloads he is the top creator for games like Blade & Sorcery and Blade & Sorcery: Nomad. He is also experienced with AI and LLM training and was recognized as an honorary valedictorian at UNAH for his contributions. Other skills include reverse engineering, embedded systems development, and XR. His favorite languages are C#, C/C++, and Python and he is familiar with tools such as Unity, Ghidra, Blender, Gimp, and WSL.</p>
+            <h2>Meet Our Team</h2>
+            <p>Our team brings together diverse skills and experiences to create an innovative web application for the Blount Scholars Program.</p>
             
-            <h2>Hannah Bray</h2>
-            <img src="Headshots/Hannah.jpg" alt="Hannah Bray" width="42" height="42">
-            <p>Hannah Bray is a senior from Birmingham, AL, majoring in Computer Science and German Literature and Language with a minor in the Blount Scholars Program. She works part-time in IT at Mercedes-Benz U.S. International following her co-op there. The majority of her experience has been working with process automation in C# and ASP .NET web development.</p>
-               
-            <h2>Khushi Modi</h2>
-            <img src="Headshots/Khushi.png" alt="Khushi Modi" width="42" height="42">
-            <p>Khushi Modi is a CS student at the University of Alabama, where she is also enrolled in the Accelerated Masters program in CS. She is currently interning with Southern Company on their Innovation and Emerging Tech group. She is also involved in campus organizations where she holds the following positions: ACM-W Technical Coordinator and H.E.A.R.T. Secretary.</p>
-            
-            <h2>Nicholas King</h2>
-            <img src="Headshots/Nicholas.jpg" alt="Nicholas King" width="42" height="42">
-            <p>Hello, I'm Nicholas King, a software developer based in Dallas, TX. With experience working on the LAMP stack during my time at Verizon, I’m excited to apply my skills to this project. I look forward to helping build a web app that not only serves the Blount community but also contributes to its growth and connection.</p>
-            
-            <h2>Chandler Norman</h2>
-            <img src="Headshots/Chandler.jpg" alt="Chandler Norman" width="42" height="42">
-            <p>Chandler Norman is a CS student from Birmingham, AL. He has extensive experience with AI and Machine Learning, stemming from his time as both a Co-op and student intern for Camgian's AI/ML department. He is most comfortable with Python, C++, C#, and Go.</p>
+            <div class="team-grid">
+                <div class="team-member">
+                    <img src="Headshots/Andres.jpg" alt="Andrés Aguilar Calderón" class="member-image">
+                    <div class="member-info">
+                        <h3>Andrés Aguilar Calderón</h3>
+                        <p>Andrés is an experienced VR developer; with over 6 million downloads he is the top creator for games like Blade & Sorcery and Blade & Sorcery: Nomad. He is also experienced with AI and LLM training and was recognized as an honorary valedictorian at UNAH for his contributions.</p>
+                        <p>Skills: C#, C/C++, Python, Unity, Ghidra, Blender, Gimp, WSL</p>
+                    </div>
+                </div>
+                
+                <div class="team-member">
+                    <img src="Headshots/Hannah.jpg" alt="Hannah Bray" class="member-image">
+                    <div class="member-info">
+                        <h3>Hannah Bray</h3>
+                        <p>Hannah Bray is a senior from Birmingham, AL, majoring in Computer Science and German Literature and Language with a minor in the Blount Scholars Program. She works part-time in IT at Mercedes-Benz U.S. International following her co-op there.</p>
+                        <p>Skills: C#, ASP .NET, Process Automation</p>
+                    </div>
+                </div>
+                
+                <div class="team-member">
+                    <img src="Headshots/Khushi.png" alt="Khushi Modi" class="member-image">
+                    <div class="member-info">
+                        <h3>Khushi Modi</h3>
+                        <p>Khushi Modi is a CS student at the University of Alabama, where she is also enrolled in the Accelerated Masters program in CS. She is currently interning with Southern Company on their Innovation and Emerging Tech group.</p>
+                        <p>Skills: C/C++, C#, ASP .NET, Python</p>
+                    </div>
+                </div>
+                
+                <div class="team-member">
+                    <img src="Headshots/Nicholas.jpg" alt="Nicholas King" class="member-image">
+                    <div class="member-info">
+                        <h3>Nicholas King</h3>
+                        <p>Hello, I'm Nicholas King, a software developer based in Dallas, TX. With experience working on the LAMP stack during my time at Verizon, I'm excited to apply my skills to this project.</p>
+                        <p>Skills: LAMP Stack, Web Development</p>
+                    </div>
+                </div>
+                
+                <div class="team-member">
+                    <img src="Headshots/Chandler.jpg" alt="Chandler Norman" class="member-image">
+                    <div class="member-info">
+                        <h3>Chandler Norman</h3>
+                        <p>Chandler Norman is a CS student from Birmingham, AL. He has extensive experience with AI and Machine Learning, stemming from his time as both a Co-op and student intern for Camgian's AI/ML department.</p>
+                        <p>Skills: Python, C++, C#, Go, AI/ML</p>
+                    </div>
+                </div>
+            </div>
         </section>
     </main>
-
+    
+    <footer>
+        <div class="container footer-content">
+            <p class="footer-text">Spring 2025 Blount Web App Team.</p>
+            <p>University of Alabama - CS 495 Capstone Project</p>
+        </div>
+    </footer>
 </body>
 </html>

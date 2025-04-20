@@ -4,52 +4,112 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Deliverable</title>
+    <title>Project Timeline | Blount Web App Project</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
     <header>
-        <h1>Deliverables</h1>
-        <nav>
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="bios.html">About Us</a></li>
-                <li><a href="deliverables.html">Deliverables</a></li>
-            </ul>
-        </nav>
+        <div class="container header-content">
+            <div>
+                <h1 class="site-title">Blount Web App Project</h1>
+                <p class="site-description">CS 495 Capstone Project</p>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="bios.html">Team</a></li>
+                    <li><a href="philosophersLLM.html">Philosopher GPT</a></li>
+                    <li><a href="deliverables.html" class="active">Project Timeline</a></li>
+                </ul>
+            </nav>
+        </div>
     </header>
     
-    <main>
+    <main class="container">
         <section>
-            <h2>Download Our Files</h2>
-            <p>Here you can download various files. Click the link below to download.</p>
-            <ul>
-                <li><a href="deliverables/CS_495_Pitch.pdf" download>Pitch Presentation</a></li>
-            </ul>
-            <ul>
-                <li><a href="deliverables/Sprint1Snapshot.zip" download>Sprint 1 Snapshot</a></li>
-            </ul>
-            <ul>
-                <li><a href="deliverables/Sprint 1 Planning Document.pdf" download>Sprint 1 Planning Document</a></li>
-            </ul>
-            <ul>
-                <li><a href="deliverables/Sprint 1 Presentation.pdf" download>Sprint 1 Presentation</a></li>
-            </ul>
-            <ul>
-                <li><a href="deliverables/Sprint 1 Backlog.xlsx" download>Sprint 1 Backlog</a></li>
-            </ul>
-            <ul>
-                <li><a href="deliverables/Sprint2Snapshot.zip" download>Sprint 2 Snapshot</a></li>
-            </ul>
-            <ul>
-                <li><a href="deliverables/Sprint 2 Planning Document.pdf" download>Sprint 2 Planning Document</a></li>
-            </ul>
-            <ul>
-                <li><a href="deliverables/Sprint 2 Presentation.pdf" download>Sprint 2 Presentation</a></li>
-            </ul>
-            <ul>
-                <li><a href="deliverables/Sprint 2 Backlog.xlsx" download>Sprint 2 Backlog</a></li>
-            </ul>
+            <h2>Project Timeline & Deliverables</h2>
+            <p>Track our project's progress through each sprint. Download our deliverables to see detailed documentation of our development process.</p>
+            
+            <div class="sprint-section">
+                <h3 class="sprint-title">Project Pitch</h3>
+                <ul class="deliverables-list">
+                    <li class="deliverable-item">
+                        <a href="deliverables/CS_495_Pitch.pdf" download class="deliverable-link">
+                            <i class="fas fa-file-pdf deliverable-icon"></i>
+                            Pitch Presentation
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="sprint-section">
+                <h3 class="sprint-title">Sprint 1</h3>
+                <ul class="deliverables-list">
+                    <li class="deliverable-item">
+                        <a href="deliverables/Sprint1Snapshot.zip" download class="deliverable-link">
+                            <i class="fas fa-file-archive deliverable-icon"></i>
+                            Sprint 1 Snapshot
+                        </a>
+                    </li>
+                    <li class="deliverable-item">
+                        <a href="deliverables/Sprint 1 Planning Document.pdf" download class="deliverable-link">
+                            <i class="fas fa-file-pdf deliverable-icon"></i>
+                            Sprint 1 Planning Document
+                        </a>
+                    </li>
+                    <li class="deliverable-item">
+                        <a href="deliverables/Sprint 1 Presentation.pdf" download class="deliverable-link">
+                            <i class="fas fa-file-pdf deliverable-icon"></i>
+                            Sprint 1 Presentation
+                        </a>
+                    </li>
+                    <li class="deliverable-item">
+                        <a href="deliverables/Sprint 1 Backlog.xlsx" download class="deliverable-link">
+                            <i class="fas fa-file-excel deliverable-icon"></i>
+                            Sprint 1 Backlog
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="sprint-section">
+                <h3 class="sprint-title">Sprint 2</h3>
+                <ul class="deliverables-list">
+                    <li class="deliverable-item">
+                        <a href="deliverables/Sprint2Snapshot.zip" download class="deliverable-link">
+                            <i class="fas fa-file-archive deliverable-icon"></i>
+                            Sprint 2 Snapshot
+                        </a>
+                    </li>
+                    <li class="deliverable-item">
+                        <a href="deliverables/Sprint 2 Planning Document.pdf" download class="deliverable-link">
+                            <i class="fas fa-file-pdf deliverable-icon"></i>
+                            Sprint 2 Planning Document
+                        </a>
+                    </li>
+                    <li class="deliverable-item">
+                        <a href="deliverables/Sprint 2 Presentation.pdf" download class="deliverable-link">
+                            <i class="fas fa-file-pdf deliverable-icon"></i>
+                            Sprint 2 Presentation
+                        </a>
+                    </li>
+                    <li class="deliverable-item">
+                        <a href="deliverables/Sprint 2 Backlog.xlsx" download class="deliverable-link">
+                            <i class="fas fa-file-excel deliverable-icon"></i>
+                            Sprint 2 Backlog
+                        </a>
+                    </li>
+                </ul>
+            </div>
         </section>
     </main>
+    
+    <footer>
+        <div class="container footer-content">
+            <p class="footer-text">Spring 2025 Blount Web App Team.</p>
+            <p>University of Alabama - CS 495 Capstone Project</p>
+        </div>
+    </footer>
 </body>
 </html>
