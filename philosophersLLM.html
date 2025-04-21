@@ -2,10 +2,10 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1" /> -->
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <title>PhilosopherGPT | Blount Web App Project</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <title>PhilosopherGPT</title>
     <style>
       @media (max-width: 768px) {
         .pillar {
@@ -48,6 +48,10 @@
         width: 60px;
         background: url('res/Column_Tall.png')
           no-repeat center;
+        /* background-size: 40px auto; */
+        /* display: flex;
+        align-items: center;
+        justify-content: center; */
         height: 100%;
         background-size: contain;
       }
@@ -157,6 +161,7 @@
       #textInput {
         flex: 1;
         padding: 14px;
+        /* padding: 8px; */
         font-size: 1em;
         font-family: inherit;
         resize: none;
@@ -206,36 +211,9 @@
         0% { transform: rotate(0deg); }
         100% { transform: rotate(360deg); }
       }
-      
-      /* Navigation bar for PhilosopherGPT */
-      .philosopher-nav {
-        background-color: var(--primary-color);
-        padding: 1rem 0;
-        text-align: center;
-      }
-      
-      .philosopher-nav a {
-        color: white;
-        text-decoration: none;
-        padding: 0.5rem 1rem;
-        margin: 0 0.5rem;
-        border-radius: 4px;
-        transition: var(--transition);
-      }
-      
-      .philosopher-nav a:hover {
-        background-color: var(--secondary-color);
-      }
     </style>
   </head>
   <body>
-    <div class="philosopher-nav">
-      <a href="index.html">Home</a>
-      <a href="bios.html">Team</a>
-      <a href="philosophersLLM.html">Philosopher GPT</a>
-      <a href="deliverables.html">Project Timeline</a>
-    </div>
-    
     <div id="header">
       <select id="modelDropdown"></select>
       <button id="loadBtn">Load Model</button>
@@ -300,7 +278,7 @@
           name: "Nietzsche",
           prompt: "What is the will to power?\n",
           model:
-            "https://huggingface.co/Greenf1re/Qwen2.5-0.5B-nietzsche-alpaca/resolve/main/Qwen2.5-0.5B-nietzsche-alpaca.gguf",
+            "https://huggingface.co/Greenf1re/Qwen2.5-0.5B-nietzsche-alpaca/resolve/main/Qwen2.5-0.5B-nietzsche-alpaca-Q4_K_M.gguf",
           type: "GGUF_CPU",
           avatar: "res/Nietzsche.png"
         }
